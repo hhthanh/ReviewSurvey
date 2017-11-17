@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>  
+    <definition name="reviewbase.definition"  
+        template="/WEB-INF/jsp/review_survey/layout.jsp">  
+        <put-attribute name="title" value="" />  
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />   
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />  
+    </definition>  
+  
+  
+    <definition name="reviewSurvey" extends="reviewbase.definition">  
+        <put-attribute name="title" value="Survey page" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/review_survey/review_survey.jsp" />
+        <put-attribute name="footer" value="" />
+    </definition>  
+
+    <definition name="thank" extends="reviewbase.definition">  
+        <put-attribute name="title" value="Survey page" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/thank.jsp" />
+        <put-attribute name="footer" value="" />
+    </definition>  
+</tiles-definitions>  

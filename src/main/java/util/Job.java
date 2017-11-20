@@ -2,7 +2,7 @@ package util;
 
 public enum Job {
 	Student("Student"), 
-	Employedfuck("Employed"),
+	Employed("Employed"),
 	Unemployed("Unemployed");
 	
 	private String jobstatus;

@@ -38,4 +38,9 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 		String sql = "SELECT * FROM reviewsurvey";
 		return (ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class));
 	}
+	
+	public int getNumberByCriteria(String criteria) {
+		String sql = "SELECT * FROM reviewsurvey WHERE "+criteria;
+		return ((ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class))).size();
+	}
 }

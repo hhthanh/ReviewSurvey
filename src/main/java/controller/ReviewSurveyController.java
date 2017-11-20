@@ -24,6 +24,8 @@ public class ReviewSurveyController {
 	public ModelAndView getIndexPage() {
 		ModelAndView mw = new ModelAndView("reviewIndex");
 		mw.addObject("surveylist", reviewSurveyService.getAllReviewSurvey());
+		mw.addObject("piechartData",reviewSurveyService.getJobStatusChartData());
+		mw.addObject("barChartData", reviewSurveyService.getReviewStaticByGender());
 		return mw;
 	}
 	

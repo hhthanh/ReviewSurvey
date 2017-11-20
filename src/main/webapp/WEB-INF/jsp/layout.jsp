@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/star-rating.css"/>" media="all"
 	rel="stylesheet" type="text/css" />
-<link href="<c:url value="/datepicker/css/bootstrap-datepicker.css"/>"
+<link href="<c:url value="/resources/css/custom.css"/>"
 	media="all" rel="stylesheet" type="text/css" />
 
 <!-- important mandatory libraries -->

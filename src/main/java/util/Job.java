@@ -1,9 +1,9 @@
 package util;
 
 public enum Job {
-	STUDENT("student"), 
-	EMPLOYED("employed"),
-	UNEMPLOYED("unemployed");
+	Student("Student"), 
+	Employedfuck("Employed"),
+	Unemployed("Unemployed");
 	
 	private String jobstatus;
 	

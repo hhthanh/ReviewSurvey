@@ -1,7 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<form:errors path="jobstatus" cssClass="error"></form:errors>
-<form:form class="form" action="review" method="post"
+<form:form class="form" action="survey" method="post"
 	modelAttribute="reviewSurvey" acceptcharset="UTF-8">
 	<h2>レビュー</h2>
 
@@ -9,6 +8,7 @@
 		<form:label path="fullname">名前:</form:label>
 		<form:input path="fullname" type="text" class="form-control"
 			placeholder="Full name" />
+		<form:errors path="fullname" cssClass="alert-danger"></form:errors>
 	</div>
 
 	<hr>
@@ -17,12 +17,11 @@
 		<label>Ngay sinh</label>
 		<div id="sandbox-container">
 			<div class="input-group">
-				<form:input path="birthday" type="text"
-					class="form-control datepicker" id="datepicker1" />
-				<span class="input-group-addon btn"><i
-					class="glyphicon glyphicon-calendar"></i> </span>
+				<form:input path="birthday" type="date"
+					class="form-control"/>
 			</div>
 		</div>
+		<form:errors path="birthday" cssClass="alert-danger"></form:errors>
 		<script type="text/javascript">
 			$('.datepicker').click(function() {
 				$('#datepicker1').datepicker('hide');
@@ -42,6 +41,8 @@
 		<form:radiobutton path="sex" value="m" name="optradio" />
 		<label>Nữ </label>
 		<form:radiobutton path="sex" value="f" name="optradio" />
+		<br>
+		<form:errors path="sex" cssClass="alert-danger"></form:errors>
 	</div>
 
 	<hr>
@@ -50,11 +51,13 @@
 		<form:label path="jobStatus">Tình trạng nghề nghiệp</form:label>
 		<div>
 			<form:select path="jobStatus" class="form-control">
-				<form:option value="STUDENT">Sinh viên</form:option>
-				<form:option value="EMPLOYED">Có việc làm</form:option>
-				<form:option value="UNEMPLOYED">Thất nghiệp</form:option>
+				<form:option value="">--Job Status--</form:option>
+				<form:option value="Student">Sinh viên</form:option>
+				<form:option value="Employed">Có việc làm</form:option>
+				<form:option value="Unemployed">Thất nghiệp</form:option>
 			</form:select>
 		</div>
+		<form:errors path="jobStatus" cssClass="alert-danger"></form:errors>
 	</div>
 
 	<hr>
@@ -63,11 +66,13 @@
 		<form:label path="country">国籍</form:label>
 		<div>
 			<form:select path="country" class="form-control">
+				<form:option value="">--国籍--</form:option>
 				<form:option value="VietNam">ベトナム</form:option>
 				<form:option value="NhatBan">日本</form:option>
 				<form:option value="Other">その他</form:option>
 			</form:select>
 		</div>
+		<form:errors path="country" cssClass="alert-danger"></form:errors>
 	</div>
 
 	<hr>
@@ -75,12 +80,13 @@
 	<div class="form-group">
 
 		<form:input path="rating_score" id="input-21e" value="0" type="text"
-			class="rating" data-min="0" data-max="5" data-step="0.5"
+			class="rating" data-min="0" data-max="5" data-step="1"
 			data-size="xs" title="" />
-
+		<form:errors path="rating_score" cssClass="alert-danger"></form:errors>
+		<br>
 		<form:label path="rating_content" class="redchar">Nội dung review:</form:label>
 		<form:input path="rating_content" type="text" class="form-control"
-			placeholder="Write your review here" required="true" />
+			placeholder="Write your review here" />
 	</div>
 
 	<hr>

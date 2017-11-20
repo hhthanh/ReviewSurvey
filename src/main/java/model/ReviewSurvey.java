@@ -10,7 +10,7 @@ public class ReviewSurvey {
 	
 	private String fullname;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date birthday;
 	
 	private Character sex;

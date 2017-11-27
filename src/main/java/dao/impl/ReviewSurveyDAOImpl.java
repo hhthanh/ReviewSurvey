@@ -43,4 +43,30 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 		String sql = "SELECT * FROM reviewsurvey WHERE "+criteria;
 		return ((ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class))).size();
 	}
+
+	@Override
+	public int countFieldByCondition(String field, String condition) {
+		String sql = "SELECT count(?) FROM reviewsurvey WHERE "+condition;
+		return getJdbcTemplate().queryForObject(sql, new Object[] {field}, Integer.class);
+		
+	}
+
+	@Override
+	public ArrayList<?> getFieldList(String field) {
+		return getFieldListByCondition(field, "1=1");
+	}
+
+	@Override
+	public int countField(String field) {
+		return countFieldByCondition(field, "1=1");
+	}
+	@Override
+	public ArrayList<?> getFieldListByCondition(String field, String condition) {
+		String sql = "SELECT "+field+" FROM reviewsurvey WHERE "+condition+" GROUP BY "+field+" ORDER BY "+field+" ASC";
+		System.out.println(sql);
+		ArrayList<?> list = (ArrayList<?>) getJdbcTemplate().queryForList(sql,String.class);
+		System.out.println(list.size());
+		return list;
+	}
+
 }

@@ -22,15 +22,6 @@
 			</div>
 		</div>
 		<form:errors path="birthday" cssClass="alert-danger"></form:errors>
-		<script type="text/javascript">
-			$('.datepicker').click(function() {
-				$('#datepicker1').datepicker('hide');
-			});
-
-			$('.btn').click(function() {
-				$('#datepicker1').datepicker('show');
-			});
-		</script>
 	</div>
 
 	<hr>

@@ -1,12 +1,14 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.ReviewSurvey;
@@ -24,8 +26,16 @@ public class ReviewSurveyController {
 	public ModelAndView getIndexPage() {
 		ModelAndView mw = new ModelAndView("reviewIndex");
 		mw.addObject("surveylist", reviewSurveyService.getAllReviewSurvey());
+		return mw;
+	}
+	
+	@GetMapping(path="analyze")
+	public ModelAndView getAnlyzePage() {
+		ModelAndView mw = new ModelAndView("reviewAnalyze");
+
 		mw.addObject("piechartData",reviewSurveyService.getJobStatusChartData());
 		mw.addObject("barChartData", reviewSurveyService.getReviewStaticByGender());
+		reviewSurveyService.getNationalInfomation().stream().forEach(e->System.out.println(e.getKey()+": "+e.getValue().toString()));
 		return mw;
 	}
 	
@@ -51,4 +61,9 @@ public class ReviewSurveyController {
 		}
 		return mw;
 	}
+	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView handleResourceNotFoundException() {
+        return new ModelAndView("error");
+    }
 }

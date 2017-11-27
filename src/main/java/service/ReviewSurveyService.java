@@ -11,4 +11,5 @@ public interface ReviewSurveyService {
 	public List<ReviewSurvey> getAllReviewSurvey();
 	public Set<Entry<String, Integer>> getJobStatusChartData();
 	public Set<Entry<Integer, Integer[]>> getReviewStaticByGender();
+	public Set<Entry<String, Integer>> getNationalInfomation();
 }

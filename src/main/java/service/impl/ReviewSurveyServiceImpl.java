@@ -57,4 +57,16 @@ public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 		return map.entrySet();
 	}
 
+	@Override
+	public Set<Entry<String, Integer>> getNationalInfomation() {
+		// TODO Auto-generated method stub
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		@SuppressWarnings("unchecked")
+		List<String> countryList = (List<String>) getReviewSurveyDAO().getFieldList("country");
+		for(String s : countryList) {
+			map.put(s, getReviewSurveyDAO().countFieldByCondition("country", "country='"+s+"'"));
+		}
+		return map.entrySet();
+	}
+
 }

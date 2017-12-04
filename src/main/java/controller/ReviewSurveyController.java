@@ -33,9 +33,10 @@ public class ReviewSurveyController {
 	public ModelAndView getAnlyzePage() {
 		ModelAndView mw = new ModelAndView("reviewAnalyze");
 
-		mw.addObject("piechartData",reviewSurveyService.getJobStatusChartData());
-		mw.addObject("barChartData", reviewSurveyService.getReviewStaticByGender());
-		reviewSurveyService.getNationalInfomation().stream().forEach(e->System.out.println(e.getKey()+": "+e.getValue().toString()));
+		mw.addObject("piechartJobData",reviewSurveyService.getJobStatusChartData());
+		mw.addObject("barChartGenderData", reviewSurveyService.getReviewStaticByGender());
+		mw.addObject("piechartAveragePointJobData", reviewSurveyService.getAverageRatingOverJob());
+		mw.addObject("piechartAveragePointGenderData", reviewSurveyService.getAverageRatingOverGender());
 		return mw;
 	}
 	

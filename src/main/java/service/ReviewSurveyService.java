@@ -12,4 +12,6 @@ public interface ReviewSurveyService {
 	public Set<Entry<String, Integer>> getJobStatusChartData();
 	public Set<Entry<Integer, Integer[]>> getReviewStaticByGender();
 	public Set<Entry<String, Integer>> getNationalInfomation();
+	public Set<Entry<String, Float>> getAverageRatingOverJob();
+	public Set<Entry<String, Float>> getAverageRatingOverGender();
 }

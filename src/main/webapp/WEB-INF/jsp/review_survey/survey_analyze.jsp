@@ -4,30 +4,81 @@
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-google.charts.load('current', {'packages':['bar']});
+
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawCharts);
-function drawCharts(){
+
+google.charts.setOnLoadCallback(drawJobCharts);
+google.charts.setOnLoadCallback(drawAveragePointOverJobCharts);
+google.charts.setOnLoadCallback(drawGenderCharts);
+google.charts.setOnLoadCallback(drawAveragePointOverGenderCharts);
+
+function drawAveragePointOverJobCharts(){
+	var data = google.visualization.arrayToDataTable([['Status', 'Average Point']
+	<c:forEach items="${piechartAveragePointJobData}" var="entry">
+    ,[ '${entry.key}', ${entry.value}]
+</c:forEach>]);
+	
+    var options = {
+      vAxis: {
+    	  minValue: 3,
+      },
+      width: 500,
+      height: 500,
+      title: "Average rating over Job status",
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+	var container1 = document.getElementById('columnchart1');
+	var chart1 = new google.visualization.ColumnChart(container1);
+	chart1.draw(data, options);
+}
+
+function drawAveragePointOverGenderCharts(){
+	var data = google.visualization.arrayToDataTable([['Gender', 'Average Point']
+	<c:forEach items="${piechartAveragePointGenderData}" var="entry">
+    ,[ '${entry.key}', ${entry.value}]
+</c:forEach>]);
+	
+    var options = {
+      vAxis: {
+    	  minValue: 3,
+      },
+      width:  500,
+      height: 500,
+      title: "Average rating over Job status",
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+	var container1 = document.getElementById('columnchart2');
+	var chart1 = new google.visualization.ColumnChart(container1);
+	chart1.draw(data, options);
+}
+
+
+function drawJobCharts(){
 
 	var data1 = google.visualization.arrayToDataTable([
 		['Status','Number']
-	    <c:forEach items="${piechartData}" var="entry">
+	    <c:forEach items="${piechartJobData}" var="entry">
 	    ,[ '${entry.key}', ${entry.value}]
 	</c:forEach>]); 
 	
 	var options1 = {
 	  title: 'Job status percentage',
-          width:900,
-          height:500
+      width:  500,
+      height: 500,
+          legend: { position: "none" },
 	};
 	var container1 = document.getElementById('piechart1');
-	container1.style.display = 'block';
 	var chart1 = new google.visualization.PieChart(container1);
 	chart1.draw(data1, options1);
+}
+
+function drawGenderCharts(){
 
 	var data2 = google.visualization.arrayToDataTable([
 	    ['Score', 'Male', 'Female'],
-	    <c:forEach items="${barChartData}" var="entry">
+	    <c:forEach items="${barChartGenderData}" var="entry">
 	    [ '${entry.key}', ${entry.value[0]}, ${entry.value[1]}],
 	</c:forEach>
 	  ]);
@@ -35,20 +86,20 @@ function drawCharts(){
 	var options = {
 	  title: 'Review static by gender',
 	  bars: 'horizontal', // Required for Material Bar Charts.
-      width:900,
-      height:500,
       vAxis: {
           title: 'Scores'
         },
       hAxis: {
           title: 'Voter No.'
-        }
+        },
+        width:  500,
+        height: 500,
+        legend: { position: "none" },
 	};
 	var container = document.getElementById('barchart_material');
-	container.style.display = 'block';
 	var chart2 = new google.visualization.BarChart(container);
 	
-	chart2.draw(data2, google.charts.Bar.convertOptions(options));
+	chart2.draw(data2, options);
 }
 </script>
 
@@ -58,20 +109,30 @@ function drawCharts(){
 <p>Analysis based on collected answers</p>
 
 <ul class="nav nav-tabs">
-	<li class="active"><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-	<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+	<li class="active col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu1">Over Job status</a></li>
+	<li class="col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu2">Over gender</a></li>
 </ul>
 
 <div class="tab-content">
 
 	<div id="menu1" class="tab-pane fade active in">
+		<table class="col-md-12">
+			<tr class="col-md-12">
+				<td class="col-md-6"><div id="piechart1" class="graph"></div></td>
+				<td class="col-md-6"><div id="columnchart1" class="graph"></div></td>
+			</tr>
+		</table>
 
-		<div id="piechart1" class="graph" style="width: 900px; height: 500px;"></div>
 	</div>
 	<div id="menu2" class="tab-pane fade">
-
-		<div id="barchart_material" class="graph"
-			style="width: 900px; height: 500px;"></div>
+		
+		<table class="col-md-12">
+			<tr class="col-md-12">
+				<td class="col-md-6"><div id="barchart_material" class="graph"></div></td>
+				<td class="col-md-6"><div id="columnchart2" class="graph"></div></td>
+			</tr>
+		</table>
+		
 	</div>
 
 </div>

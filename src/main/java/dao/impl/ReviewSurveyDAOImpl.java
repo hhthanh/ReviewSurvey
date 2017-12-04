@@ -63,10 +63,15 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 	@Override
 	public ArrayList<?> getFieldListByCondition(String field, String condition) {
 		String sql = "SELECT "+field+" FROM reviewsurvey WHERE "+condition+" GROUP BY "+field+" ORDER BY "+field+" ASC";
-		System.out.println(sql);
 		ArrayList<?> list = (ArrayList<?>) getJdbcTemplate().queryForList(sql,String.class);
-		System.out.println(list.size());
 		return list;
+	}
+
+	@Override
+	public float getAverageRatingByCondition(String condition) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT AVG(rating_score) FROM reviewsurvey WHERE "+condition;
+		return getJdbcTemplate().queryForObject(sql, Float.class);
 	}
 
 }

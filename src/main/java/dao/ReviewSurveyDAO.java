@@ -13,4 +13,5 @@ public interface ReviewSurveyDAO {
 	public int countFieldByCondition(String field, String condition);
 	public ArrayList<?> getFieldListByCondition(String field, String condition);
 	public ArrayList<?> getFieldList(String field);
+	public float getAverageRatingByCondition(String condition);
 }

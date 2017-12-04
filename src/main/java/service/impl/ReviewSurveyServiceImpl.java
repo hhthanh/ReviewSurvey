@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import dao.ReviewSurveyDAO;
 import model.ReviewSurvey;
 import service.ReviewSurveyService;
+import util.Job;
 
 public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 
@@ -66,6 +67,26 @@ public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 		for(String s : countryList) {
 			map.put(s, getReviewSurveyDAO().countFieldByCondition("country", "country='"+s+"'"));
 		}
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Float>> getAverageRatingOverJob() {
+		// TODO Auto-generated method stub
+		HashMap<String, Float> map = new HashMap<String, Float>();
+		for(Job j : Job.values()) {
+			map.put(j.toString(), getReviewSurveyDAO().getAverageRatingByCondition("jobStatus = '"+j.toString()+"'"));
+		}
+		map.entrySet().forEach(e->System.out.println(e.getKey()+e.getValue()));
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Float>> getAverageRatingOverGender() {
+		// TODO Auto-generated method stub
+		HashMap<String, Float> map = new HashMap<String, Float>();
+		map.put("Male", getReviewSurveyDAO().getAverageRatingByCondition("sex = 'm'"));
+		map.put("Female", getReviewSurveyDAO().getAverageRatingByCondition("sex = 'f'"));
 		return map.entrySet();
 	}
 

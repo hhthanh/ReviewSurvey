@@ -1,6 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<form:form class="form" action="survey" method="post"
+<form:form class="form" action="survey" method="POST"
 	modelAttribute="reviewSurvey" acceptcharset="UTF-8">
 	<h2>レビュー</h2>
 

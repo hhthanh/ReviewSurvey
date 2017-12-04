@@ -77,7 +77,6 @@ public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 		for(Job j : Job.values()) {
 			map.put(j.toString(), getReviewSurveyDAO().getAverageRatingByCondition("jobStatus = '"+j.toString()+"'"));
 		}
-		map.entrySet().forEach(e->System.out.println(e.getKey()+e.getValue()));
 		return map.entrySet();
 	}
 

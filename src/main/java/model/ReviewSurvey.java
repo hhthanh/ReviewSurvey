@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import util.Country;
 import util.JobStatus;
 
 public class ReviewSurvey {
@@ -15,7 +16,7 @@ public class ReviewSurvey {
 	
 	private Character sex;
 	private JobStatus jobStatus;
-	private String country;
+	private Country country;
 	private Float rating_score;
 	private String rating_content;
 	
@@ -82,11 +83,11 @@ public class ReviewSurvey {
 		this.rating_content = rating_content;
 	}
 
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 	

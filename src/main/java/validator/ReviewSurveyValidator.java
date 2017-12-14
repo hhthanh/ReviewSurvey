@@ -27,7 +27,7 @@ public class ReviewSurveyValidator implements Validator {
 
 		ReviewSurvey rs = (ReviewSurvey) reviewsurvey;
 		if (rs.getRating_score() == null) {
-			errors.rejectValue("rating_score", "score.empty");
+			errors.rejectValue("rating_score", "rating.score.empty");
 		}
 
 		//////// Validate each field in detail/////////
@@ -51,7 +51,7 @@ public class ReviewSurveyValidator implements Validator {
 				+ "[\\uFF00-\\uFFEF ]*|"
 				+ "[\\u4E00-\\u9FAF ]*|"
 				+ "[a-zA-Z ]*)";
-		if (!Pattern.matches(nameRegex, rs.getFullname())) {
+		if ((!rs.getFullname().equals(""))&&(!Pattern.matches(nameRegex, rs.getFullname()))) {
 			errors.rejectValue("fullname", "fullname.invalidCharacter");
 		}else {
 			ValidationUtils.rejectIfEmpty(errors, "fullname", "fullname.empty");
@@ -59,6 +59,13 @@ public class ReviewSurveyValidator implements Validator {
 		
 		// Validate birthday
 		
+		// Validate JobStatus
+		
+		// Content validation
+		String contentRegex = "[^ ]([\\u0022-\\u005C &\\u3000-\\u303F &\\u3040-\\u309F &\\u30A0-\\u30FF &\\uFF00-\\uFFEF &\\u4E00-\\u9FAF &a-zA-Z ]*)";
+		if(!Pattern.matches(contentRegex, rs.getRating_content())){
+			errors.rejectValue("rating_content","rating.content.invalid");
+		}
 	}
 
 }

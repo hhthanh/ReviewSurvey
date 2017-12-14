@@ -80,24 +80,25 @@
 	<hr>
 
 	<div class="form-group">
-		<spring:message code="score.label" var="score_label" />
+		<spring:message code="rating.score.label" var="score_label" />
 		<form:label path="rating_score">${score_label}: </form:label>
 		<form:input path="rating_score" id="input-21e" value="0" type="text"
 			class="rating" data-min="0" data-max="5" data-step="1" data-size="xs"
 			title="" />
 		<form:errors path="rating_score" cssClass="alert-danger"></form:errors>
 		<br>
-		<spring:message code="score.content" var="score_content" />
-		<spring:message code="score.content.spaceholder"
+		<spring:message code="rating.score.content" var="score_content" />
+		<spring:message code="rating.score.content.spaceholder"
 			var="score_content_spaceholder" />
 		<form:label path="rating_content" class="redchar">${score_content}:</form:label>
 		<form:input path="rating_content" type="text" class="form-control"
 			placeholder="${score_content_spaceholder}" />
+			<form:errors path="rating_content" cssClass="alert-danger"></form:errors>
 	</div>
 
 	<hr>
-	<spring:message code="fullname.label" var="fullname_label" />
-	<form:button type="submit" class="btn btn-primary" id="checkBtn">Submit</form:button>
+	<spring:message code="submit.label" var="submit_label" />
+	<form:button type="submit" class="btn btn-primary" id="checkBtn">${submit_label}</form:button>
 </form:form>
 <script>
 	jQuery(document).ready(function() {

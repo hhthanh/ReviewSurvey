@@ -42,12 +42,16 @@ public class ReviewSurveyController {
 	@GetMapping(path="analyze")
 	public ModelAndView getAnlyzePage() {
 		ModelAndView mw = new ModelAndView("reviewAnalyze");
-
+		try{
 		mw.addObject("piechartJobData",reviewSurveyService.getJobStatusChartData());
 		mw.addObject("barChartGenderData", reviewSurveyService.getReviewStaticByGender());
 		mw.addObject("piechartAveragePointJobData", reviewSurveyService.getAverageRatingOverJob());
 		mw.addObject("piechartAveragePointGenderData", reviewSurveyService.getAverageRatingOverGender());
 		return mw;
+		}catch(NullPointerException e){
+			return new ModelAndView("error");
+		}
+		
 	}
 	
 	@GetMapping(path = "survey")
@@ -63,14 +67,19 @@ public class ReviewSurveyController {
 
 	@PostMapping("survey")
 	public ModelAndView postSurveyPage(@ModelAttribute ReviewSurvey reviewSurvey, BindingResult bindingResult,
-			ModelAndView mw) {
+			ModelAndView mw, HttpServletRequest request) {
 
 		ReviewSurveyValidator validator = new ReviewSurveyValidator();
 		validator.validate(reviewSurvey, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			System.out.println("Error!");
-			mw.setViewName("reviewSurvey");
+			Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
+			HashMap<String, String> mapJobStatus = helper.getLocalLanguageName(JobStatus.class,locale);
+			HashMap<String, String> mapCountry = helper.getLocalLanguageName(Country.class,locale);
+			mw.addObject("jobStatusList", mapJobStatus.entrySet())
+			.addObject("countryList", mapCountry.entrySet())
+			.addObject("reviewSurvey",reviewSurvey)
+			.setViewName("reviewSurvey");
 		} else {
 
 			if (reviewSurveyService.addOrUpdateReviewSurveyToDB(reviewSurvey)) mw.setViewName("thank");

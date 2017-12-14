@@ -2,21 +2,35 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
-	
-	<mvc:default-servlet-handler/>
+
+	<mvc:default-servlet-handler />
 	<context:component-scan base-package="/controller" />
 	<context:component-scan base-package="/model" />
+	<context:component-scan base-package="/util" />
 	<context:annotation-config />
 
-	<mvc:annotation-driven/>
-	<mvc:resources location="/resources/" mapping="/resources/**"/>
-	<mvc:resources location="classpath:/META-INF/resources/webjars/bootstrap-datepicker/1.7.1/" mapping="/datepicker/**"/>
-	<import resource="dataSource.xml"/>
-	
+	<mvc:annotation-driven />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources
+		location="classpath:/META-INF/resources/webjars/bootstrap-datepicker/1.7.1/"
+		mapping="/datepicker/**" />
+	<import resource="dataSource.xml" />
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="ja_JP" />
+	</bean>
+
+		<mvc:interceptors>
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="locale">
+				</property>
+			</bean>
+		</mvc:interceptors>
 </beans>

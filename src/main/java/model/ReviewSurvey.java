@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import util.Job;
+import util.JobStatus;
 
 public class ReviewSurvey {
 	
@@ -14,7 +14,7 @@ public class ReviewSurvey {
 	private Date birthday;
 	
 	private Character sex;
-	private Job jobStatus;
+	private JobStatus jobStatus;
 	private String country;
 	private Float rating_score;
 	private String rating_content;
@@ -23,7 +23,7 @@ public class ReviewSurvey {
 		
 	}
 	
-	public ReviewSurvey(String fullname, Job jobStatus, Date birthday, Character sex, Float rating_score,
+	public ReviewSurvey(String fullname, JobStatus jobStatus, Date birthday, Character sex, Float rating_score,
 			String rating_content) {
 		super();
 		this.fullname = fullname;
@@ -42,11 +42,11 @@ public class ReviewSurvey {
 		this.fullname = fullname;
 	}
 
-	public Job getJobStatus() {
+	public JobStatus getJobStatus() {
 		return jobStatus;
 	}
 
-	public void setJobStatus(Job jobStatus) {
+	public void setJobStatus(JobStatus jobStatus) {
 		this.jobStatus = jobStatus;
 	}
 

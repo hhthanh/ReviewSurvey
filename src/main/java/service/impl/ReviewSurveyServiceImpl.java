@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import dao.ReviewSurveyDAO;
 import model.ReviewSurvey;
 import service.ReviewSurveyService;
-import util.Job;
+import util.JobStatus;
 
 public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 
@@ -74,7 +74,7 @@ public class ReviewSurveyServiceImpl implements ReviewSurveyService {
 	public Set<Entry<String, Float>> getAverageRatingOverJob() {
 		// TODO Auto-generated method stub
 		HashMap<String, Float> map = new HashMap<String, Float>();
-		for(Job j : Job.values()) {
+		for(JobStatus j : JobStatus.values()) {
 			map.put(j.toString(), getReviewSurveyDAO().getAverageRatingByCondition("jobStatus = '"+j.toString()+"'"));
 		}
 		return map.entrySet();

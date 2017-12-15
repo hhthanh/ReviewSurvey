@@ -18,7 +18,6 @@ public class LanguageHelper {
 				
 				try {
 					map.put(key, new String(labels.getString(s).getBytes("ISO-8859-1"), "UTF-8"));
-					System.out.println(key+": "+new String(labels.getString(s).getBytes("ISO-8859-1"), "UTF-8"));
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

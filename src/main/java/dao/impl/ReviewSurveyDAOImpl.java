@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -10,6 +12,7 @@ import model.ReviewSurvey;
 
 public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyDAO{
 
+	Logger logger = LogManager.getLogger(this.getClass());
 	//Add a review survey object to db
 	public boolean addOrUpdateReviewSurveyToDB(ReviewSurvey rs) {
 		String sql = "INSERT INTO reviewsurvey ("
@@ -26,7 +29,7 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 				rs.getFullname(), 
 				rs.getBirthday(),
 				rs.getSex(),
-				rs.getCountry(),
+				rs.getCountry().toString(),
 				rs.getJobStatus().toString(),
 				rs.getRating_score(),
 				rs.getRating_content()
@@ -36,7 +39,16 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 	
 	public ArrayList<ReviewSurvey> getAllReviewSurvey() {
 		String sql = "SELECT * FROM reviewsurvey";
-		return (ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql, new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class));
+		logger.info("getAllReviewSurvey");
+		try {
+		ArrayList<ReviewSurvey> list = (ArrayList<ReviewSurvey>)getJdbcTemplate().query(sql, new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class));
+		logger.info("get "+list.size()+" survey");
+		return  list;
+		}catch(Exception e) {
+			logger.error("getAllReviewSurvey",e);
+			return null;
+		}
+		
 	}
 	
 	public int getNumberByCriteria(String criteria) {

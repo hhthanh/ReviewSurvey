@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
@@ -105,12 +106,12 @@ function drawGenderCharts(){
 
 
 
-<h2>Data analysis</h2>
-<p>Analysis based on collected answers</p>
+<h2><spring:message code="page.analysis.header"></spring:message></h2>
+<p><spring:message code="page.analysis.description"></spring:message></p>
 
 <ul class="nav nav-tabs">
-	<li class="active col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu1">Over Job status</a></li>
-	<li class="col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu2">Over gender</a></li>
+	<li class="active col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu1"><spring:message code="page.analysis.menu1.label"></spring:message></a></li>
+	<li class="col-md-6" style="text-align:center"><a data-toggle="tab" href="#menu2"><spring:message code="page.analysis.menu2.label"></spring:message></a></li>
 </ul>
 
 <div class="tab-content">

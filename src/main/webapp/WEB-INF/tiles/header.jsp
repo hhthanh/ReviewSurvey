@@ -1,14 +1,20 @@
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div class="navbar navbar-default navbar-fixedtop">
-	<div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/ReviewSurvey/review/index">Spring Tiles</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="/ReviewSurvey/review/index">Home</a></li>
-      <li><a href="survey">Survey</a></li>
-      <li><a href="analyze">Analyze</a></li>
-    </ul>
-  </div>
+	<div class="container-fluid" style="vertical-align: middle;">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/ReviewSurvey/review/index">Spring
+				Tiles</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="/ReviewSurvey/review/index"><spring:message code="header.nav.home"></spring:message></a></li>
+			<li><a href="survey"><spring:message code="header.nav.survey" /></a></li>
+			<li><a href="analyze"><spring:message code="header.nav.analysis" /></a></li>
+		</ul>
+		<div class="navbar-right" style="vertical-align: middle;">
+			<a href="?locale=ja_JP">JP</a>/
+			<a href="?locale=en_US">US</a>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
     $(function() {

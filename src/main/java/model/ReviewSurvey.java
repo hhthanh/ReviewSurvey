@@ -24,9 +24,10 @@ public class ReviewSurvey {
 		
 	}
 	
-	public ReviewSurvey(String fullname, JobStatus jobStatus, Date birthday, Character sex, Float rating_score,
+	public ReviewSurvey(String fullname, JobStatus jobStatus, Country country, Date birthday, Character sex, Float rating_score,
 			String rating_content) {
 		super();
+		this.country = country;
 		this.fullname = fullname;
 		this.jobStatus = jobStatus;
 		this.birthday = birthday;

@@ -63,7 +63,7 @@ public class ReviewSurveyValidator implements Validator {
 		
 		// Content validation
 		String contentRegex = "[^ ]([\\u0022-\\u005C &\\u3000-\\u303F &\\u3040-\\u309F &\\u30A0-\\u30FF &\\uFF00-\\uFFEF &\\u4E00-\\u9FAF &a-zA-Z ]*)";
-		if(!Pattern.matches(contentRegex, rs.getRating_content())){
+		if(!rs.getRating_content().isEmpty()&&!Pattern.matches(contentRegex, rs.getRating_content())){
 			errors.rejectValue("rating_content","rating.content.invalid");
 		}
 	}

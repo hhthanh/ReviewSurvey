@@ -1,1 +1,2 @@
-database-config.properties
+src/main/resources/database-config.properties
+target/classes/database-config.properties

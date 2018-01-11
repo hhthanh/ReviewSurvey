@@ -98,7 +98,6 @@ public class ReviewSurveyController {
 		validator.validate(reviewSurvey, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			bindingResult.getAllErrors().forEach(e->System.out.println(e.getDefaultMessage()));
 			Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
 			HashMap<String, String> mapJobStatus = helper.getLocalLanguageName(JobStatus.class,locale);
 			HashMap<String, String> mapCountry = helper.getLocalLanguageName(Country.class,locale);

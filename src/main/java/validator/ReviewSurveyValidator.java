@@ -45,7 +45,7 @@ public class ReviewSurveyValidator implements Validator {
 		// 30A0-30FF : katakana
 		// FF00-FFEF : Full-width roman + half-width katakana
 		// 4E00-9FAF : Common and uncommon kanji
-		String nameRegex = "[^ ]([\\u3000-\\u303F ]*|"
+		String nameRegex = "[^ ][^0-9]([\\u3000-\\u303F ]*|"
 				+ "[\\u3040-\\u309F ]*|"
 				+ "[\\u30A0-\\u30FF ]*|"
 				+ "[\\uFF00-\\uFFEF ]*|"

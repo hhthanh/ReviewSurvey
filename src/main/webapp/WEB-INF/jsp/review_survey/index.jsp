@@ -9,6 +9,7 @@
 <spring:message code="index.table.header.jobstatus" var="jobstatus" />
 <spring:message code="index.table.header.rating.score" var="score" />
 <spring:message code="index.table.header.rating.content" var="content" />
+<spring:message code="index.table.header.purchaseditem" var="purchased"/>
 <div class="pre-scrollable">
 	<table class="table-striped table-condensed">
 		<thead>
@@ -20,6 +21,7 @@
 				<th><c:out value="${jobstatus}" /></th>
 				<th><c:out value="${score}" /></th>
 				<th><c:out value="${content}" /></th>
+				<th><c:out value="${purchased}" /></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +36,7 @@
 					<td><c:out value="${review.jobStatus} " /></td>
 					<td><c:out value="${review.rating_score} " /></td>
 					<td><c:out value="${review.rating_content} " /></td>
+					<td><c:out value="${review.productList} " /></td>
 				</tr>
 			</c:forEach>
 		</tbody>

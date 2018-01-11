@@ -18,7 +18,8 @@
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames" value="classpath:/error/messages, classpath:/info/label"/>
+		<property name="basenames"
+			value="classpath:/error/messages, classpath:/info/label" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
@@ -27,10 +28,21 @@
 		<property name="defaultLocale" value="ja_JP" />
 	</bean>
 
-		<mvc:interceptors>
-			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-				<property name="paramName" value="locale">
-				</property>
-			</bean>
-		</mvc:interceptors>
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="locale">
+			</property>
+		</bean>
+	</mvc:interceptors>
+
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<bean id="conversionService"
+      class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="util.IdToProductConverter"></bean>
+				<bean class="util.StringToDateConverter"></bean>
+			</list>
+		</property>
+	</bean>
 </beans>

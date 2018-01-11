@@ -16,4 +16,8 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<bean id="productDAO" class="dao.impl.ProductDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 </beans>

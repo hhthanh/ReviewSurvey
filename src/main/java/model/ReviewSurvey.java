@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,11 +11,11 @@ import util.JobStatus;
 
 public class ReviewSurvey {
 	
+	private Integer id;
 	private String fullname;
-	
 	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date birthday;
-	
+	private List<Product> productList;
 	private Character sex;
 	private JobStatus jobStatus;
 	private Country country;
@@ -21,7 +23,12 @@ public class ReviewSurvey {
 	private String rating_content;
 	
 	public ReviewSurvey() {
-		
+		this.productList = new ArrayList<Product>();
+	}
+	
+	public ReviewSurvey(Integer id) {
+		this.id = id;
+		this.productList = new ArrayList<Product>();
 	}
 	
 	public ReviewSurvey(String fullname, JobStatus jobStatus, Country country, Date birthday, Character sex, Float rating_score,
@@ -34,8 +41,17 @@ public class ReviewSurvey {
 		this.sex = sex;
 		this.rating_score = rating_score;
 		this.rating_content = rating_content;
+		this.productList = new ArrayList<Product>();
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public String getFullname() {
 		return fullname;
 	}
@@ -92,5 +108,12 @@ public class ReviewSurvey {
 		this.country = country;
 	}
 	
-	
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
 }

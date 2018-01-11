@@ -93,7 +93,19 @@
 	</div>
 
 	<hr>
-
+	
+	<div class="form-group">
+		<spring:message code="product.list.label" var="product_list_label"></spring:message>
+		<form:label class="control-label col-sm-2" path="productList">${product_list_label}</form:label>
+		<div class="col-sm-5">
+			<c:forEach items="${productList}" var="product">
+				<form:checkbox path="productList" label="${product.name}" value="${product.id}"/> <br>
+			</c:forEach>
+			
+		</div>
+	</div>
+	
+	<hr>
 	<div class="form-group">
 		<spring:message code="rating.score.label" var="score_label" />
 		<form:label class="control-label col-sm-2" path="rating_score">${score_label}: </form:label>

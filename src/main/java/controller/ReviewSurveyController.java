@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import model.ReviewSurvey;
+import service.ProductService;
 import service.ReviewSurveyService;
 import util.Country;
 import util.JobStatus;
@@ -32,6 +33,25 @@ public class ReviewSurveyController {
 	Logger logger = LogManager.getLogger(ReviewSurveyController.class);
 	@Autowired
 	private ReviewSurveyService reviewSurveyService;
+	@Autowired
+	private ProductService productService;
+	
+	public ReviewSurveyService getReviewSurveyService() {
+		return reviewSurveyService;
+	}
+
+	public void setReviewSurveyService(ReviewSurveyService reviewSurveyService) {
+		this.reviewSurveyService = reviewSurveyService;
+	}
+
+	public ProductService getProductService() {
+		return productService;
+	}
+
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+
 	@Autowired
 	private LanguageHelper helper;
 	
@@ -66,7 +86,8 @@ public class ReviewSurveyController {
 		return new ModelAndView("reviewSurvey")
 				.addObject("reviewSurvey", new ReviewSurvey())
 				.addObject("jobStatusList", mapJobStatus.entrySet())
-				.addObject("countryList", mapCountry.entrySet());
+				.addObject("countryList", mapCountry.entrySet())
+				.addObject("productList",productService.getAllProduct());
 	}
 
 	@PostMapping("survey")
@@ -77,15 +98,16 @@ public class ReviewSurveyController {
 		validator.validate(reviewSurvey, bindingResult);
 
 		if (bindingResult.hasErrors()) {
+			bindingResult.getAllErrors().forEach(e->System.out.println(e.getDefaultMessage()));
 			Locale locale = RequestContextUtils.getLocaleResolver(request).resolveLocale(request);
 			HashMap<String, String> mapJobStatus = helper.getLocalLanguageName(JobStatus.class,locale);
 			HashMap<String, String> mapCountry = helper.getLocalLanguageName(Country.class,locale);
 			mw.addObject("jobStatusList", mapJobStatus.entrySet())
 			.addObject("countryList", mapCountry.entrySet())
+			.addObject("productList",productService.getAllProduct())
 			.addObject("reviewSurvey",reviewSurvey)
 			.setViewName("reviewSurvey");
 		} else {
-
 			if (reviewSurveyService.addOrUpdateReviewSurveyToDB(reviewSurvey)) mw.setViewName("thank");
 			else mw.setViewName("error");
 		}

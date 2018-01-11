@@ -7,8 +7,8 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="/ReviewSurvey/review/index"><spring:message code="header.nav.home"></spring:message></a></li>
-			<li><a href="survey"><spring:message code="header.nav.survey" /></a></li>
-			<li><a href="analyze"><spring:message code="header.nav.analysis" /></a></li>
+			<li><a href="/ReviewSurvey/review/survey"><spring:message code="header.nav.survey" /></a></li>
+			<li><a href="/ReviewSurvey/review/analyze"><spring:message code="header.nav.analysis" /></a></li>
 		</ul>
 		<div class="navbar-right" style="vertical-align: middle;">
 			<a href="?locale=ja_JP">JP</a>/

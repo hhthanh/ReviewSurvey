@@ -2,6 +2,9 @@ package dao.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import dao.ReviewSurveyDAO;
 import model.Product;
 import model.ReviewSurvey;
+import util.JobStatus;
 
 public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyDAO {
 
@@ -75,15 +79,15 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 	}
 
 	public int getNumberByCriteria(String criteria) {
-		String sql = "SELECT * FROM reviewsurvey WHERE " + criteria;
-		return ((ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql,
+		String sql = "SELECT * FROM reviewsurvey WHERE ?";
+		return ((ArrayList<ReviewSurvey>) getJdbcTemplate().query(sql, new Object[] {criteria},
 				new BeanPropertyRowMapper<ReviewSurvey>(ReviewSurvey.class))).size();
 	}
 
 	@Override
 	public int countFieldByCondition(String field, String condition) {
-		String sql = "SELECT count(?) FROM reviewsurvey WHERE " + condition;
-		return getJdbcTemplate().queryForObject(sql, new Object[] { field }, Integer.class);
+		String sql = "SELECT count(?) FROM reviewsurvey WHERE ?";
+		return getJdbcTemplate().queryForObject(sql, new Object[] { field, condition }, Integer.class);
 
 	}
 
@@ -99,9 +103,9 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 
 	@Override
 	public ArrayList<?> getFieldListByCondition(String field, String condition) {
-		String sql = "SELECT " + field + " FROM reviewsurvey WHERE " + condition + " GROUP BY " + field + " ORDER BY "
+		String sql = "SELECT ? FROM reviewsurvey WHERE ? GROUP BY ? ORDER BY "
 				+ field + " ASC";
-		ArrayList<?> list = (ArrayList<?>) getJdbcTemplate().queryForList(sql, String.class);
+		ArrayList<?> list = (ArrayList<?>) getJdbcTemplate().queryForList(sql, new Object[] {field, condition, field, field} , String.class);
 		return list;
 	}
 
@@ -110,6 +114,61 @@ public class ReviewSurveyDAOImpl extends JdbcDaoSupport implements ReviewSurveyD
 		// TODO Auto-generated method stub
 		String sql = "SELECT AVG(rating_score) FROM reviewsurvey WHERE " + condition;
 		return getJdbcTemplate().queryForObject(sql, Float.class);
+	}
+
+	@Override
+	public Set<Entry<Integer, Integer[]>> getReviewStaticByGender() {
+		HashMap<Integer, Integer[]> map = new HashMap<Integer, Integer[]>();
+		map.put(1, new Integer[] { getNumberByCriteria("sex='m' AND rating_score=1"),
+				getNumberByCriteria("sex='f' AND rating_score=1") });
+		map.put(2, new Integer[] { getNumberByCriteria("sex = 'm' AND rating_score=2"),
+				getNumberByCriteria("sex='f' AND rating_score=2") });
+		map.put(3, new Integer[] {getNumberByCriteria("sex = 'm' AND rating_score=3"),
+				getNumberByCriteria("sex='f' AND rating_score=3") });
+		map.put(4, new Integer[] {getNumberByCriteria("sex = 'm' AND rating_score=4"),
+				getNumberByCriteria("sex='f' AND rating_score=4") });
+		map.put(5, new Integer[] { getNumberByCriteria("sex = 'm' AND rating_score=5"),
+				getNumberByCriteria("sex='f' AND rating_score=5") });
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Integer>> getJobStatusChartData() {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Student", getNumberByCriteria("jobstatus = 'Student'"));
+		map.put("Employed", getNumberByCriteria("jobstatus = 'Employed'"));
+		map.put("Unemployed", getNumberByCriteria("jobstatus = 'Unemployed'"));
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Integer>> getNationalInfomation() {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		@SuppressWarnings("unchecked")
+		List<String> countryList = (List<String>) getFieldList("country");
+		for(String s : countryList) {
+			map.put(s, countFieldByCondition("country", "country='"+s+"'"));
+		}
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Float>> getAverageRatingOverJob() {
+		// TODO Auto-generated method stub
+		HashMap<String, Float> map = new HashMap<String, Float>();
+		for(JobStatus j : JobStatus.values()) {
+			map.put(j.toString(), getAverageRatingByCondition("jobStatus = '"+j.toString()+"'"));
+		}
+		return map.entrySet();
+	}
+
+	@Override
+	public Set<Entry<String, Float>> getAverageRatingOverGender() {
+		// TODO Auto-generated method stub
+		HashMap<String, Float> map = new HashMap<String, Float>();
+		map.put("Male", getAverageRatingByCondition("sex = 'm'"));
+		map.put("Female", getAverageRatingByCondition("sex = 'f'"));
+		return map.entrySet();
 	}
 
 }
